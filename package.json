@@ -1,0 +1,19 @@
+{
+    "name": "redux-tattoo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "lib/redux-tattoo.js",
+    "scripts": {
+        "test": "mocha --r esm --reporter spec test/**/*.test.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "esm": "^3.2.25",
+        "mocha": "^6.2.0"
+    },
+    "dependencies": {
+        "lodash.set": "^4.3.2"
+    }
+}
