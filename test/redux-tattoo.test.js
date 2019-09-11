@@ -157,7 +157,7 @@ describe("when testing the redux-tattoo module", () => {
 
     stencilScenarios.forEach(
         ({ namespace, localStorageState, stencilDefaultValue, expectedStencilResult }) => {
-            describe("when creating a Stencil for the namespace: '${namespace}'", () => {
+            describe(`when creating a Stencil for the namespace: '${namespace}'`, () => {
                 let localStorageMock;
                 let stencil;
                 beforeEach(() => {

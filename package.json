@@ -4,12 +4,10 @@
     "description": "",
     "main": "lib/redux-tattoo.js",
     "scripts": {
-        "test": "mocha --r esm --reporter spec test/**/*.test.js",
-        "test-on-travis": "istanbul cover --report lcovonly _mocha",
-        "upload-to-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+        "test": "mocha -r esm --reporter spec test/**/*.test.js"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "Ioannis Tzanellis",
+    "license": "MIT",
     "devDependencies": {
         "chai": "^4.2.0",
         "esm": "^3.2.25",
