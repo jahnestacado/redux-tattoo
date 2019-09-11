@@ -1,3 +1,8 @@
+/**
+ * redux-tattoo <https://github.com/jahnestacado/redux-tattoo>
+ * Copyright (c) 2019 Ioannis Tzanellis
+ * Licensed under the MIT License (MIT).
+ */
 import { Stencil, Tattoo, attach, _clearTattooRegistry } from "./../lib/redux-tattoo.js";
 import createLocalStorageMock from "./utils/local-storage-mock.js";
 import createReduxStoreStub from "./utils/redux-store-stub.js";
