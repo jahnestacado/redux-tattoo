@@ -24,9 +24,9 @@ describe("when testing the redux-tattoo module", () => {
             // Define the Stencil in order to register the fields in the tattooRegistry
             Stencil(
                 {
-                    token: Tattoo(null),
-                    username: Tattoo("unknown"),
-                    info: Tattoo({
+                    token: new Tattoo(null),
+                    username: new Tattoo("unknown"),
+                    info: new Tattoo({
                         telephone: null,
                         address: "",
                     }),
@@ -86,12 +86,12 @@ describe("when testing the redux-tattoo module", () => {
                 "global.foo": "unused",
             },
             stencilDefaultValue: {
-                numericValue: Tattoo(0),
-                stringValue: Tattoo("default"),
-                nullValue: Tattoo("soon to be null..."),
-                topLevelObj: Tattoo({ a: "A-value", b: "B-value" }),
+                numericValue: new Tattoo(0),
+                stringValue: new Tattoo("default"),
+                nullValue: new Tattoo("soon to be null..."),
+                topLevelObj: new Tattoo({ a: "A-value", b: "B-value" }),
                 secondLevelObj: {
-                    tattooedVal: Tattoo("traditional"),
+                    tattooedVal: new Tattoo("traditional"),
                     trivialVal: "ink",
                 },
                 trivial: "Non tattooed field",
@@ -124,12 +124,12 @@ describe("when testing the redux-tattoo module", () => {
                 foo: "unused",
             },
             stencilDefaultValue: {
-                numericValue: Tattoo(0),
-                stringValue: Tattoo("default"),
-                nullValue: Tattoo("soon to be null..."),
-                topLevelObj: Tattoo({ a: "A-value", b: "B-value" }),
+                numericValue: new Tattoo(0),
+                stringValue: new Tattoo("default"),
+                nullValue: new Tattoo("soon to be null..."),
+                topLevelObj: new Tattoo({ a: "A-value", b: "B-value" }),
                 secondLevelObj: {
-                    tattooedVal: Tattoo("traditional"),
+                    tattooedVal: new Tattoo("traditional"),
                     trivialVal: "ink",
                 },
                 trivial: "Non tattooed field",
