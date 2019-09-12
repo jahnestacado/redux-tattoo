@@ -116,6 +116,45 @@ describe("when testing the redux-tattoo module", () => {
             },
         },
         {
+            namespace: "root.level1",
+            localStorageState: {
+                "root.level1.numericValue": 9.99,
+                "root.level1.nullValue": null,
+                "root.level1.stringValue": "foo-bar",
+                "root.level1.secondLevelObj": {
+                    a: undefined,
+                    b: null,
+                },
+                "root.level1.thirdLevelObj.tattooedVal": "realistic",
+                "root.level1.foo": "unused",
+            },
+            stencilDefaultValue: {
+                numericValue: new Tattoo(0),
+                stringValue: new Tattoo("default"),
+                nullValue: new Tattoo("soon to be null..."),
+                secondLevelObj: new Tattoo({ a: "A-value", b: "B-value" }),
+                thirdLevelObj: {
+                    tattooedVal: new Tattoo("traditional"),
+                    trivialVal: "ink",
+                },
+                trivial: "Non tattooed field",
+                trivialNested: { c: "C" },
+            },
+            expectedStencilResult: {
+                numericValue: 9.99,
+                stringValue: "foo-bar",
+                nullValue: null,
+                secondLevelObj: { b: null },
+                thirdLevelObj: {
+                    tattooedVal: "realistic",
+                    trivialVal: "ink",
+                },
+                trivial: "Non tattooed field",
+                trivialNested: { c: "C" },
+            },
+        },
+
+        {
             namespace: undefined,
             localStorageState: {
                 numericValue: 9.99,

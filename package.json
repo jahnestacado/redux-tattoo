@@ -6,6 +6,8 @@
     "scripts": {
         "test": "mocha -r esm --reporter spec test/**/*.test.js"
     },
+    "repository": "https://github.com/jahnestacado/redux-tattoo",
+    "keywords": "localstorage, redux, storage, session, react, sessionstorage",
     "author": "Ioannis Tzanellis",
     "license": "MIT",
     "devDependencies": {
