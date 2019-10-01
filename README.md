@@ -14,7 +14,8 @@ Bind redux state to localStorage
 
 _reducer.js_
 
-```
+
+```js
 import produce from 'immer';
 import {
   LOGIN_SUCCESS,
@@ -54,7 +55,7 @@ The namespace is a path that points to the place of the reducer state in the red
 
 In the example above we use the 'global' namespace. This will target the global property of the current redux store state
 
-```
+```js
 const reduxStoreState =  store.getState();
 
 console.log(reduxStoreState);
@@ -70,7 +71,7 @@ console.log(reduxStoreState);
 
 We need to `attach` the redux-tattoo to our applications redux store in order to listen for state changes and update the localStorage accordingly. It also provides a throttling mechanism in order to avoid unnecessary writes to localStorage since it is a synchronous operation.
 
-```
+```js
 import reduxTattoo from 'redux-tatoo';
 import { createStore } from 'redux';
 
@@ -86,7 +87,9 @@ reduxTattoo.attach(store, {throttleInterval: 200});
 
 ### Module default exports
 
-`export default { Stencil, Tattoo, attach }`
+```js
+export default { Stencil, Tattoo, attach }
+```
 
 ---
 
