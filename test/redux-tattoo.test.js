@@ -3,7 +3,7 @@
  * Copyright (c) 2019 Ioannis Tzanellis
  * Licensed under the MIT License (MIT).
  */
-import { Stencil, Tattoo, attach, _clearTattooRegistry } from "./../lib/redux-tattoo.js";
+import { stencil, Tattoo, attach, _clearTattooRegistry } from "./../lib/redux-tattoo.js";
 import createLocalStorageMock from "./utils/local-storage-mock.js";
 import createReduxStoreStub from "./utils/redux-store-stub.js";
 import chai from "chai";
@@ -26,8 +26,8 @@ describe("when testing the redux-tattoo module", () => {
         beforeEach(() => {
             reduxStoreStub = createReduxStoreStub();
             localStorageMock = createLocalStorageMock({});
-            // Define the Stencil in order to register the fields in the tattooRegistry
-            Stencil(
+            // Define the stencil in order to register the fields in the tattooRegistry
+            stencil(
                 {
                     token: new Tattoo(null),
                     username: new Tattoo("unknown"),
@@ -196,12 +196,12 @@ describe("when testing the redux-tattoo module", () => {
 
     stencilScenarios.forEach(
         ({ namespace, localStorageState, stencilDefaultValue, expectedStencilResult }) => {
-            describe(`when creating a Stencil for the namespace: '${namespace}'`, () => {
+            describe(`when creating a stencil for the namespace: '${namespace}'`, () => {
                 let localStorageMock;
-                let stencil;
+                let stateStencil;
                 beforeEach(() => {
                     localStorageMock = createLocalStorageMock(localStorageState);
-                    stencil = Stencil(stencilDefaultValue, namespace);
+                    stateStencil = stencil(stencilDefaultValue, namespace);
                 });
 
                 afterEach(() => {
@@ -210,7 +210,7 @@ describe("when testing the redux-tattoo module", () => {
                 });
 
                 it("should return the expected object", () => {
-                    expect(stencil).to.deep.equal(expectedStencilResult);
+                    expect(stateStencil).to.deep.equal(expectedStencilResult);
                 });
             });
         }

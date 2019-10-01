@@ -8,45 +8,43 @@ Bind redux state to localStorage
 
 ## Install
 
-`npm install --save redux-tattoo`
+```sh
+npm install --save redux-tattoo
+```
 
 ## Usage
 
 _reducer.js_
 
-
 ```js
-import produce from 'immer';
-import {
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-} from './constants';
-import { Stencil, Tattoo } from 'redux-tattoo';
+import produce from "immer";
+import { LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
+import { stencil, Tattoo } from "redux-tattoo";
 
 // create Tattoo with default value of the relevant property
 const sessionTattoo = new Tattoo({});
 
-// create a Stencil and define which properties will persist/load to/from localStorage
-// essentially any property inside the Stencil that is of type Tattoo will be
+// create a stencil and define which properties will persist/load to/from localStorage
+// essentially any property inside the stencil that is of type Tattoo will be
 // stored to localStorage and upon initialization of the initialState if there is already a value stored for that property it will be loaded instead of the Tattoo default value
-export const initialState = Stencil(
-  {
-    session: sessionTattoo,
-  },
-  'global', // optional namespace definition. This is optional
+export const initialState = stencil(
+    {
+        session: sessionTattoo,
+    },
+    "global" // optional namespace definition. This is optional
 );
 
 const reducer = (state = initialState, action) =>
-  produce(state, draft => {
-    switch (action.type) {
-      case LOGIN_SUCCESS:
-        draft.session = action.session;
-        break;
-      case LOGOUT_SUCCESS:
-        draft.session = sessionTattoo.default;
-        break;
-    }
-  });
+    produce(state, (draft) => {
+        switch (action.type) {
+            case LOGIN_SUCCESS:
+                draft.session = action.session;
+                break;
+            case LOGOUT_SUCCESS:
+                draft.session = sessionTattoo.default;
+                break;
+        }
+    });
 
 export default reducer;
 ```
@@ -88,12 +86,12 @@ reduxTattoo.attach(store, {throttleInterval: 200});
 ### Module default exports
 
 ```js
-export default { Stencil, Tattoo, attach }
+export default { stencil, Tattoo, attach };
 ```
 
 ---
 
-### Stencil(reducerInitialState, namespace)
+### stencil(reducerInitialState, namespace)
 
 A function that syncs the reducerInitialState properties to localStorage. All properties that hold as a value a `Tattoo` instance will be synced with localStorage.
 
@@ -106,7 +104,7 @@ A function that syncs the reducerInitialState properties to localStorage. All pr
 
 ### Tattoo(defaultValue)
 
-A class that instantiates Tattoos. Tattoos are used by a `Stencil` to mark which properties will be synced in localStorage.
+A class that instantiates Tattoos. Tattoos are used by a `stencil` to mark which properties will be synced in localStorage.
 
 #### Arguments
 
