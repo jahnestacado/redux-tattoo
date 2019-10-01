@@ -10,7 +10,7 @@ Simple and expressive way to bind redux state to localStorage.
 
 Existing libraries that bind redux state to localStorage for the most part are more complicated than they should and do unnecessary dehydrations. Morever they are heavily dependent on implementation details of redux which limits version compatibility.
 
-This module is a an expressive way to define which properties of your reducers state needs to be persisted and synced with localStorage. Essentialy you create a `stencil` by providing an object(your reducer state) that can potentially hold `Tattoo` instances. A `Tattoo` is just a placeholder with a default value and can be used to mark which properties needs to be peristed/synced.
+This module is a an expressive way to define which properties of your reducers state needs to be persisted and synced with localStorage. Essentially you create a `stencil` by providing an object(your reducer state) that can potentially hold `Tattoo` instances. A `Tattoo` is just a placeholder with a default value and can be used to mark which properties needs to be peristed/synced.
 
 ## Install
 
