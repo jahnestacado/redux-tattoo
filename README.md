@@ -4,7 +4,13 @@
 
 # redux-tattoo
 
-Bind redux state to localStorage
+Simple and expressive way to bind redux state to localStorage.
+
+## Motivation
+
+Existing libraries that bind redux state to localStorage for the most part are more complicated than they should and do unnecessary dehydrations. Morever they are heavily dependent on implementation details of redux which limits version compatibility.
+
+This module is a an expressive way to define which properties of your reducers state needs to be persisted and synced with localStorage. Essentialy you create a `stencil` by providing an object(your reducer state) that can potentially hold `Tattoo` instances. A `Tattoo` is just a placeholder with a default value and can be used to mark which properties needs to be peristed/synced.
 
 ## Install
 
@@ -29,9 +35,9 @@ const sessionTattoo = new Tattoo({});
 // stored to localStorage and upon initialization of the initialState if there is already a value stored for that property it will be loaded instead of the Tattoo default value
 export const initialState = stencil(
     {
-        session: sessionTattoo,
+        session: sessionTattoo, // It evalutes to the last stored value in localStorage otherwise to the default value, in this case an empty object
     },
-    "global" // optional namespace definition. This is optional
+    "global" // optional namespace definition
 );
 
 const reducer = (state = initialState, action) =>
@@ -49,7 +55,7 @@ const reducer = (state = initialState, action) =>
 export default reducer;
 ```
 
-The namespace is a path that points to the place of the reducer state in the redux store
+The namespace is a selector path that points to the place of the reducer state in the redux store.
 
 In the example above we use the 'global' namespace. This will target the global property of the current redux store state
 
@@ -67,7 +73,9 @@ console.log(reduxStoreState);
 
 ```
 
-We need to `attach` the redux-tattoo to our applications redux store in order to listen for state changes and update the localStorage accordingly. It also provides a throttling mechanism in order to avoid unnecessary writes to localStorage since it is a synchronous operation.
+We can further target nested properties by defining dot seperated paths e.g `global.session`.
+
+In order to listen for state changes and update the localStorage accordingly we need to `attach` redux-tattoo to our applications redux store.
 
 ```js
 import reduxTattoo from 'redux-tatoo';
@@ -78,6 +86,8 @@ const store = createStore(...);
 reduxTattoo.attach(store, {throttleInterval: 200});
 
 ```
+
+As we can see it also provides an optional throttling mechanism in order to avoid unnecessary writes to localStorage since this is a synchronous operation.
 
 ## API
 
@@ -93,12 +103,17 @@ export default { stencil, Tattoo, attach };
 
 ### stencil(reducerInitialState, namespace)
 
-A function that syncs the reducerInitialState properties to localStorage. All properties that hold as a value a `Tattoo` instance will be synced with localStorage.
+A function that syncs all `Tattoo` properties from the reducer state with the localStorage object.
 
-#### Arguments
+##### _Arguments_
 
 `reducerInitialState - [Object]`
-`namespace - [String] Optional`
+
+`namespace - {Optional}[String]`
+
+##### _Returns_
+
+The synced reducer state object with the localStorage.
 
 ---
 
@@ -106,13 +121,9 @@ A function that syncs the reducerInitialState properties to localStorage. All pr
 
 A class that instantiates Tattoos. Tattoos are used by a `stencil` to mark which properties will be synced in localStorage.
 
-#### Arguments
+##### _Arguments_
 
 `defaultValue - [Object]`
-
-#### Returns
-
-`Tattoo instance - [Object] of format: { default:[Object] }`
 
 ---
 
@@ -120,11 +131,14 @@ A class that instantiates Tattoos. Tattoos are used by a `stencil` to mark which
 
 A functions that attaches redux-tattoo to the reduxStore in order to listen for state changes.
 
-#### Arguments
+##### _Arguments_
 
 `reduxStore - [Object]`
-`options - [Object] of format: { throttleInterval:[Integer] in millis}`
+
+`options - {Optional}[Object] of format: { throttleInterval:[Integer] in millis}`
 
 ## Run tests
 
-`npm test`
+```sh
+npm test
+```
