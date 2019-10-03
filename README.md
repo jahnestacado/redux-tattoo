@@ -32,10 +32,11 @@ const sessionTattoo = new Tattoo({});
 
 // create a stencil and define which properties will persist/load to/from localStorage
 // essentially any property inside the stencil that is of type Tattoo will be
-// stored to localStorage and upon initialization of the initialState if there is already a value stored for that property it will be loaded instead of the Tattoo default value
+// stored to localStorage and upon initialization of the initialState if there is already
+// a value stored for that property it will be loaded instead of the Tattoo default value
 export const initialState = stencil(
     {
-        session: sessionTattoo, // It evalutes to the last stored value in localStorage otherwise to the default value, in this case an empty object
+        session: sessionTattoo, // It evaluates to the last stored value in localStorage otherwise to the default value
     },
     "global" // optional namespace definition
 );
