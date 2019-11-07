@@ -23,7 +23,6 @@ npm install --save redux-tattoo
 _reducer.js_
 
 ```js
-import produce from "immer";
 import { LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
 import { stencil, Tattoo } from "redux-tattoo";
 
@@ -38,27 +37,31 @@ export const initialState = stencil(
     {
         session: sessionTattoo, // It evaluates to the last stored value in localStorage otherwise to the default value
     },
-    "global" // optional namespace definition
+    "user" // optional namespace selector
 );
 
-const reducer = (state = initialState, action) =>
-    produce(state, (draft) => {
-        switch (action.type) {
-            case LOGIN_SUCCESS:
-                draft.session = action.session;
-                break;
-            case LOGOUT_SUCCESS:
-                draft.session = sessionTattoo.default;
-                break;
-        }
-    });
+const reducer = (state = initialState, action) => {
+    let newState;
+    switch (action.type) {
+        case LOGIN_SUCCESS:
+            newState = { ...state, session: action.session };
+            break;
+        case LOGOUT_SUCCESS:
+            newState = { ...state, session: sessionTattoo.default };
+            break;
+        default:
+            newState = state;
+    }
+
+    return newState;
+};
 
 export default reducer;
 ```
 
-The namespace is a selector path that points to the place of the reducer state in the redux store.
+The namespace is a selector path that points to the field of the targeted reducer state in the redux store.
 
-In the example above we use the 'global' namespace. This will target the global property of the current redux store state
+In the example above we use the 'user' namespace. This will target the user property of the current redux store state
 
 ```js
 const reduxStoreState =  store.getState();
@@ -67,14 +70,14 @@ console.log(reduxStoreState);
 
 // printed value of reduxStoreState
 {
-  global: {
+  user: {
     session: {}, // this is the targeted property from the code above
   }
 }
 
 ```
 
-We can further target nested properties by defining dot seperated paths e.g `global.session`.
+We can further target nested properties by defining dot seperated paths e.g `user.session`.
 
 In order to listen for state changes and update the localStorage accordingly we need to `attach` redux-tattoo to our applications redux store.
 
